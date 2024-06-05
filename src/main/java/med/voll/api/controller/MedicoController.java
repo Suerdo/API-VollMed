@@ -17,7 +17,7 @@ public class MedicoController {
     @Autowired
     private MedicoRepository repository;
     @PostMapping
-    @Transactional
+    @Transactional // Método de Escrita, logo preciso de transação com o banco de dados
     public void cadastrar(@RequestBody @Valid DadosCadastroMedico dados){
         repository.save(new Medico(dados));
     }
