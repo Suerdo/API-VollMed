@@ -22,11 +22,32 @@ public class Paciente {
     private String telefone;
     @Embedded
     private Endereco endereco;
+    private boolean ativo;
 
     public Paciente(DadosCadastroPaciente dados){
         this.nome = dados.nome();
         this.email = dados.email();
         this.telefone = dados.telefone();
         this.endereco = new Endereco(dados.endereco());
+        this.ativo = true;
+    }
+
+    public void atualizarInformacoes(DadosAtualizacaoPaciente dados) {
+        if(dados.nome() != null) {
+            this.nome = dados.nome();
+        }
+        if(dados.telefone() != null) {
+            this.telefone = dados.telefone();
+        }
+        if (dados.email() != null) {
+            this.email = dados.email();
+        }
+        if(dados.dadosEndereco() != null){
+            this.endereco.atualizarInformacoes(dados.dadosEndereco());
+        }
+    }
+
+    public void excluir() {
+        this.ativo = false;
     }
 }
