@@ -17,36 +17,35 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String gerarToken(Usuario usuario){
+    public String gerarToken(Usuario usuario) {
         try {
-            var algortimo = Algorithm.HMAC256(secret);
-
+            Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer("API Voll.med")
-                    .withSubject(usuario.getLogin())
-                    .withExpiresAt(dataExpericao())
+                    .withSubject(usuario.getUsername())
+                    .withExpiresAt(dataExpiracao())
                     .withClaim("id", usuario.getId())
-                    .sign(algortimo);
-
-        } catch (JWTCreationException exception){
+                    .sign(algorithm);
+        } catch (JWTCreationException exception) {
             throw new RuntimeException("Erro ao gerar token jwt", exception);
         }
-
     }
-    public String getSubject(String tokenJWT){
+
+    public String getSubject(String tokenJWT) {
         try {
-            var algortimo = Algorithm.HMAC256(secret);
-            return JWT.require(algortimo)
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            return JWT.require(algorithm)
                     .withIssuer("API Voll.med")
                     .build()
                     .verify(tokenJWT)
                     .getSubject();
-        } catch (JWTVerificationException exception){
+        } catch (JWTVerificationException exception) {
             throw new RuntimeException("Token JWT inválido ou expirado.");
         }
     }
 
-    private Instant dataExpericao() {
+    private Instant dataExpiracao() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
 }
+
