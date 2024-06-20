@@ -25,7 +25,6 @@ public class ConsultaController {
         return ResponseEntity.ok(dto);
     }
 
-
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id) {
