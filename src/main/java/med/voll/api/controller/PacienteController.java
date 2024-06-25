@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("pacientes")
+@CrossOrigin(origins = "http://localhost:4200")
 @SecurityRequirement(name = "bearer-key")
 public class PacienteController {
     @Autowired
@@ -36,7 +37,7 @@ public class PacienteController {
         var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemPaciente::new);
         return ResponseEntity.ok(page);
     }
-    @PutMapping
+    @PutMapping("/{id}")
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoPaciente dados){
         var paciente = repository.getReferenceById(dados.id());
