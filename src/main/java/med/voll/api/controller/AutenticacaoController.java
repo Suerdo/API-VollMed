@@ -40,16 +40,9 @@ public class AutenticacaoController {
     @PostMapping("/registro")
     @Transactional
     public ResponseEntity cadastrarUsuario(@RequestBody @Valid DadosAutenticacaoCadastro dadosCadastro) {
-        if (dadosCadastro.senha() == null) {
-            throw new IllegalArgumentException("Senha não pode ser nula");
-        }
-
         var novoUsuario = new Usuario(dadosCadastro, passwordEncoder);
         usuarioRepository.save(novoUsuario);
         var tokenJWT = tokenService.gerarToken(novoUsuario);
-
         return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }
-
-
 }

@@ -12,7 +12,8 @@ public record DadosListagemConsulta(
         Long idMedico,
         @NotBlank String nomePaciente,
         @NotNull Long idPaciente,
-        @NotNull @Future LocalDateTime data) {
+        @NotNull @Future LocalDateTime data,
+        @NotNull Long idConsulta) {
 
         public DadosListagemConsulta(Consulta consulta) {
                 this(
@@ -20,7 +21,8 @@ public record DadosListagemConsulta(
                         consulta.getMedico() != null ? consulta.getMedico().getId() : null,
                         consulta.getPaciente() != null ? consulta.getPaciente().getNome() : null,
                         consulta.getPaciente() != null ? consulta.getPaciente().getId() : null,
-                        consulta.getData()
+                        consulta.getData(),
+                        consulta.getId()
                 );
         }
 }

@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("consultas")
 @SecurityRequirement(name = "bearer-key")
@@ -38,5 +40,11 @@ public class ConsultaController {
     public ResponseEntity excluir(@PathVariable Long id) {
         repository.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity detalhar(@PathVariable Long id) {
+        var consulta = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoConsulta(consulta));
     }
 }

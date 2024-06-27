@@ -20,7 +20,8 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfigurations {
-
+    // Define as políticas de segurança, especificando quais URLs são protegidas, quais são públicas.
+    // Configura o SecurityFilter para aplicar o JWT em cada requisição.
     @Autowired
     private SecurityFilter securityFilter;
 

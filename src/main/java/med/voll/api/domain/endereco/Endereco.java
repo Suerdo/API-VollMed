@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+//Lombok
 @Embeddable
 @Getter
 @NoArgsConstructor
@@ -18,6 +19,7 @@ public class Endereco {
     private String cidade;
     private String uf;
 
+    //Usa o DTO DadosEndereco p/inicializar o estado de algum objeto tipo Endereco
     public Endereco(DadosEndereco dados){
         this.logradouro = dados.logradouro();
         this.bairro = dados.bairro();
